@@ -26,12 +26,20 @@ describe('TasksService', () => {
       name: 'foo'
     })
   })
-  it('should find task', async () => {
+  it('should found for task id is 2', async () => {
     const task = { id: 2, name: 'bar' }
     prismaMock.tasks.findUnique.mockResolvedValue(task)
     await expect(service.findOne(task.id)).resolves.toEqual({
       id: 2,
       name: 'bar'
+    })
+  })
+  it('should found for task id is 3', async () => {
+    const task = { id: 3, name: 'baz' }
+    prismaMock.tasks.findUnique.mockResolvedValue(task)
+    await expect(service.findOne(task.id)).resolves.toEqual({
+      id: 3,
+      name: 'baz'
     })
   })
 });
