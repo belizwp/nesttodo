@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -13,13 +13,22 @@ export class TasksController {
   }
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  async findAll(
+    @Query('q') searchString?: string,
+    @Query('limit') limit?: number,
+    @Query('offset') offset?: number,
+  ) {
+    const result = await this.tasksService.findAll(searchString, limit, offset);
+    return {
+      tasks: result[0],
+      total: result[1],
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    let result = this.tasksService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    let result = await this.tasksService.findOne(+id);
+    console.log(result)
     if (result) {
       return result
     }

@@ -12,6 +12,7 @@ async function bootstrap() {
   // for custom validate exceptiion read https://github.com/nestjs/nest/issues/1267
   // app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.enableShutdownHooks()
   await app.listen(3000);
 }
 bootstrap();
