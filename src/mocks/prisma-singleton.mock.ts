@@ -12,4 +12,4 @@ beforeEach(() => {
   mockReset(prismaMock)
 })
 
-export const prismaMock = (prisma as unknown) as MockProxy<PrismaClient>
+export const prismaMock = prisma as unknown as MockProxy<PrismaClient>

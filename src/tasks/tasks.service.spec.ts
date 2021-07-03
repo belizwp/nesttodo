@@ -1,29 +1,32 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TasksService } from './tasks.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { TasksService } from './tasks.service'
 import { PrismaService } from '../prisma.service'
 import { prismaMock } from '../mocks/prisma-singleton.mock'
 
 describe('TasksService', () => {
-  let service: TasksService;
+  let service: TasksService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TasksService, { provide: PrismaService, useValue: prismaMock }],
-    }).compile();
+      providers: [
+        TasksService,
+        { provide: PrismaService, useValue: prismaMock },
+      ],
+    }).compile()
 
-    service = module.get<TasksService>(TasksService);
-  });
+    service = module.get<TasksService>(TasksService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+    expect(service).toBeDefined()
+  })
   it('should create task', async () => {
     const task = { id: 1, name: 'foo' }
     // @ts-ignore
     prismaMock.tasks.create.mockResolvedValue(task)
     await expect(service.create(task)).resolves.toEqual({
       id: 1,
-      name: 'foo'
+      name: 'foo',
     })
   })
   it('should found for task id is 2', async () => {
@@ -31,7 +34,7 @@ describe('TasksService', () => {
     prismaMock.tasks.findUnique.mockResolvedValue(task)
     await expect(service.findOne(task.id)).resolves.toEqual({
       id: 2,
-      name: 'bar'
+      name: 'bar',
     })
   })
   it('should found for task id is 3', async () => {
@@ -39,7 +42,7 @@ describe('TasksService', () => {
     prismaMock.tasks.findUnique.mockResolvedValue(task)
     await expect(service.findOne(task.id)).resolves.toEqual({
       id: 3,
-      name: 'baz'
+      name: 'baz',
     })
   })
-});
+})
