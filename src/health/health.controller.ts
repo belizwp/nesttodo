@@ -4,7 +4,7 @@ import {
   HttpHealthIndicator,
   HealthCheck,
 } from '@nestjs/terminus'
-import { DatabaseHealthIndicator } from 'src/databse.health'
+import { DatabaseHealthIndicator } from './databse.health'
 
 @Controller('health')
 export class HealthController {
@@ -12,13 +12,11 @@ export class HealthController {
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
     private db: DatabaseHealthIndicator,
-  ) { }
+  ) {}
 
   @Get()
   @HealthCheck()
   check() {
-    return this.health.check([
-      () => this.db.healthCheck('database'),
-    ])
+    return this.health.check([() => this.db.healthCheck('database')])
   }
 }

@@ -4,7 +4,7 @@ import { AuthGuard } from './auth.guard'
 import { ValidationPipe } from '@nestjs/common'
 import { HttpExceptionFilter } from './http-exception.filter'
 import { LoggingInterceptor } from './logging.interceptor'
-import { PrismaService } from './prisma.service'
+import { PrismaService } from './database/prisma.service'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)

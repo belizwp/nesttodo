@@ -11,7 +11,7 @@ import { Request, Response } from 'express'
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  private readonly logger = new Logger(LoggingInterceptor.name);
+  private readonly logger = new Logger(LoggingInterceptor.name)
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.switchToHttp().getRequest<Request>()
@@ -23,7 +23,8 @@ export class LoggingInterceptor implements NestInterceptor {
       .pipe(
         tap(() =>
           this.logger.log(
-            `${req.method} ${req.path} with ${res.statusCode} in ${Date.now() - now
+            `${req.method} ${req.path} with ${res.statusCode} in ${
+              Date.now() - now
             } ms. ${userAgent ? userAgent : 'N/A'}`,
             'HTTP',
           ),
