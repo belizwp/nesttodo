@@ -4,19 +4,21 @@ import {
   HttpHealthIndicator,
   HealthCheck,
 } from '@nestjs/terminus'
+import { DatabaseHealthIndicator } from 'src/databse.health'
 
 @Controller('health')
 export class HealthController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
-  ) {}
+    private db: DatabaseHealthIndicator,
+  ) { }
 
   @Get()
   @HealthCheck()
   check() {
     return this.health.check([
-      // () => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
+      () => this.db.healthCheck('database'),
     ])
   }
 }
