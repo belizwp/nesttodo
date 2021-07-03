@@ -28,7 +28,6 @@ export class TasksController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     let result = await this.tasksService.findOne(+id);
-    console.log(result)
     if (result) {
       return result
     }
