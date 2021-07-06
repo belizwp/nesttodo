@@ -26,7 +26,7 @@ export class TasksService {
         where: { name: { contains: searchString } },
         take: Number(limit) || 10,
         skip: Number(offset) || 0,
-        orderBy: { id: 'asc' },
+        orderBy: { id: 'desc' },
       }),
       this.prismaService.tasks.count(),
     ])
