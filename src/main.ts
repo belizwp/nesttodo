@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common'
 import { HttpExceptionFilter } from './http-exception.filter'
 import { LoggingInterceptor } from './logging.interceptor'
 import { PrismaService } from './database/prisma.service'
+import {} from 'kubemq-js'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
