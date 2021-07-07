@@ -4,7 +4,7 @@ import { KubemqModule } from './kubemq/kubemq.module'
 import { SystemModule } from './system/system.module'
 
 @Module({
-  imports: [SystemModule, KubemqModule.forRoot(), TasksModule],
+  imports: [KubemqModule.forRoot(), SystemModule, TasksModule],
   controllers: [],
   providers: [],
 })
