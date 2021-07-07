@@ -8,4 +8,4 @@ import { TasksSubscriber } from './tasks.subscriber'
   controllers: [TasksController, TasksSubscriber],
   providers: [TasksService, PrismaService],
 })
-export class TasksModule { }
+export class TasksModule {}

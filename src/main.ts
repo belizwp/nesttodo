@@ -1,11 +1,10 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { AuthGuard } from './auth.guard'
+import { AuthGuard } from './guard/auth.guard'
 import { ValidationPipe } from '@nestjs/common'
-import { HttpExceptionFilter } from './http-exception.filter'
-import { LoggingInterceptor } from './logging.interceptor'
+import { HttpExceptionFilter } from './filter/http-exception.filter'
+import { LoggingInterceptor } from './interceptor/logging.interceptor'
 import { PrismaService } from './database/prisma.service'
-import {} from 'kubemq-js'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)

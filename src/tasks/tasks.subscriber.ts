@@ -1,8 +1,8 @@
-import { Body, Controller, Logger, OnModuleInit } from "@nestjs/common";
-import { SubscribeTo } from "src/kubemq/kubemq.decorator";
-import { KubemqService } from "src/kubemq/kubemq.service";
-import { CreateTaskDto } from "./dto/create-task.dto";
-import { TasksService } from "./tasks.service";
+import { Body, Controller, Logger, OnModuleInit } from '@nestjs/common'
+import { SubscribeTo } from 'src/kubemq/kubemq.decorator'
+import { KubemqService } from 'src/kubemq/kubemq.service'
+import { CreateTaskDto } from './dto/create-task.dto'
+import { TasksService } from './tasks.service'
 import { validateOrReject } from 'class-validator'
 
 @Controller()
@@ -11,7 +11,7 @@ export class TasksSubscriber implements OnModuleInit {
   constructor(
     private readonly kubemqService: KubemqService,
     private readonly tasksService: TasksService,
-  ) { }
+  ) {}
 
   onModuleInit() {
     this.kubemqService.subscribeToResponseOf('tasks.created', this)
