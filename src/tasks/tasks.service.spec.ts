@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { TasksService } from './tasks.service'
-import { PrismaService } from '../database/prisma.service'
+import { PrismaService } from '../shared/service/prisma.service'
 import { prismaMock } from '../mock/prisma-singleton.mock'
 
 describe('TasksService', () => {

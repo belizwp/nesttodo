@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { SystemController } from './system.controller'
 import { SystemService } from './system.service'
 import { TerminusModule } from '@nestjs/terminus'
-import { PrismaService } from 'src/database/prisma.service'
+import { PrismaService } from '../shared/service/prisma.service'
 import { DatabaseHealthIndicator } from '../system/databse.health'
 import { KubemqHealthIndicator } from './kubemq.health'
 

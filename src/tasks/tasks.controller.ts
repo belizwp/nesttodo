@@ -13,7 +13,7 @@ import {
 import { TasksService } from './tasks.service'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
-import { Authenticated, AuthInfo } from '../decorator/authenticated.decorator'
+import { Authenticated, AuthInfo } from '../shared/decorator/authenticated.decorator'
 
 @Controller('tasks')
 export class TasksController {
