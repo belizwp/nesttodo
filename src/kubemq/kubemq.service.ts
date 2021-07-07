@@ -39,6 +39,7 @@ export class KubemqService implements OnModuleInit, OnModuleDestroy {
   private async subscribe(channel: string): Promise<void> {
     const subRequest: EventsStoreSubscriptionRequest = {
       channel: channel,
+      group: 'nesttodo',
       clientId: Utils.uuid(),
       requestType: EventStoreType.StartFromFirst,
     }
