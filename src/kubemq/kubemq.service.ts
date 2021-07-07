@@ -4,21 +4,21 @@ import {
   OnModuleDestroy,
   Logger,
 } from '@nestjs/common'
-import { Utils, EventsClient, Config, EventsMessage } from 'kubemq-js'
+import { Config, EventStoreType, EventsStoreClient, EventsStoreSubscriptionRequest, EventsStoreMessage, Utils } from 'kubemq-js'
 
 import { SUBSCRIBER_MAP, SUBSCRIBER_OBJECT_MAP } from './kubemq.decorator'
 
 @Injectable()
 export class KubemqService implements OnModuleInit, OnModuleDestroy {
   protected logger = new Logger(KubemqService.name, true)
-  private eventsClient: EventsClient
+  private eventsClient: EventsStoreClient
 
   async onModuleInit() {
     const opts: Config = {
       address: 'localhost:50000',
       clientId: Utils.uuid(),
     }
-    this.eventsClient = new EventsClient(opts)
+    this.eventsClient = new EventsStoreClient(opts)
     SUBSCRIBER_MAP.forEach((functionRef, channel) => {
       this.subscribe(channel)
     })
@@ -29,7 +29,7 @@ export class KubemqService implements OnModuleInit, OnModuleDestroy {
   }
 
   async publish(channel: string, message: string): Promise<void> {
-    const eventsMessage: EventsMessage = {
+    const eventsMessage: EventsStoreMessage = {
       channel: channel,
       body: Utils.stringToBytes(message),
     }
@@ -37,8 +37,10 @@ export class KubemqService implements OnModuleInit, OnModuleDestroy {
   }
 
   private async subscribe(channel: string): Promise<void> {
-    const subRequest = {
+    const subRequest: EventsStoreSubscriptionRequest = {
       channel: channel,
+      clientId: Utils.uuid(),
+      requestType: EventStoreType.StartFromFirst,
     }
     await this.eventsClient
       .subscribe(subRequest, async (err, msg) => {
