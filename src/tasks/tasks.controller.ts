@@ -13,13 +13,17 @@ import {
 import { TasksService } from './tasks.service'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
+import { Authenticated, AuthInfo } from 'src/decorator/authenticated.decorator'
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) { }
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
+  create(
+    @Authenticated() authInfo: AuthInfo,
+    @Body() createTaskDto: CreateTaskDto,
+  ) {
     return this.tasksService.create(createTaskDto)
   }
 
