@@ -5,7 +5,7 @@ import { tasks as Task } from '@prisma/client'
 import { PrismaService } from '../shared/service/prisma.service'
 
 @Injectable()
-export class TasksService {
+export class TaskService {
   constructor(private readonly prismaService: PrismaService) {}
 
   create(createTaskDto: CreateTaskDto): Promise<Task | null> {

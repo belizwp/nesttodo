@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { TasksController } from './tasks.controller'
-import { TasksService } from './tasks.service'
+import { TaskController } from './task.controller'
+import { TaskService } from './task.service'
 import { mockDeep, mockReset } from 'jest-mock-extended'
 
-const taskServiceMock = mockDeep<TasksService>()
+const taskServiceMock = mockDeep<TaskService>()
 
-describe('TasksController', () => {
-  let controller: TasksController
+describe('TaskController', () => {
+  let controller: TaskController
 
   beforeEach(async () => {
     mockReset(taskServiceMock)
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TasksController],
-      providers: [{ provide: TasksService, useValue: taskServiceMock }],
+      controllers: [TaskController],
+      providers: [{ provide: TaskService, useValue: taskServiceMock }],
     }).compile()
 
-    controller = module.get<TasksController>(TasksController)
+    controller = module.get<TaskController>(TaskController)
   })
 
   it('should be defined', () => {

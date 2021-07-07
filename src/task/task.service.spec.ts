@@ -1,20 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { TasksService } from './tasks.service'
+import { TaskService } from './task.service'
 import { PrismaService } from '../shared/service/prisma.service'
 import { prismaMock } from '../mock/prisma-singleton.mock'
 
-describe('TasksService', () => {
-  let service: TasksService
+describe('TaskService', () => {
+  let service: TaskService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        TasksService,
+        TaskService,
         { provide: PrismaService, useValue: prismaMock },
       ],
     }).compile()
 
-    service = module.get<TasksService>(TasksService)
+    service = module.get<TaskService>(TaskService)
   })
 
   it('should be defined', () => {

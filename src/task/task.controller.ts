@@ -10,14 +10,14 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common'
-import { TasksService } from './tasks.service'
+import { TaskService } from './task.service'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
 import { Authenticated, AuthInfo } from '../shared/decorator/authenticated.decorator'
 
 @Controller('tasks')
-export class TasksController {
-  constructor(private readonly tasksService: TasksService) { }
+export class TaskController {
+  constructor(private readonly tasksService: TaskService) { }
 
   @Post()
   create(

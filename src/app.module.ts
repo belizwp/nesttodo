@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { TasksModule } from './tasks/tasks.module'
+import { TasksModule } from './task/task.module'
 import { KubemqModule } from './kubemq/kubemq.module'
 import { SystemModule } from './system/system.module'
 
