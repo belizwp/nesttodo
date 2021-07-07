@@ -1,12 +1,15 @@
 import localConfig from "./local.config";
 import developConfig from "./develop.config";
+import productionConfig from "./production.config";
 
 const pjson = require('../../package.json')
 const ENV = process.env.NODE_ENV
 
 let envConfig: object
 
-if (ENV === 'development') {
+if (ENV === 'production') {
+  envConfig = productionConfig()
+} else if (ENV === 'development') {
   envConfig = developConfig()
 } else {
   envConfig = localConfig()
