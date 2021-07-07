@@ -11,7 +11,7 @@ import { KubemqHealthIndicator } from './kubemq.health'
 @Controller()
 export class SystemController {
   constructor(
-    private appService: SystemService,
+    private systemService: SystemService,
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
     private db: DatabaseHealthIndicator,
@@ -20,7 +20,7 @@ export class SystemController {
 
   @Get('/system/version')
   getHello() {
-    return this.appService.getVersion()
+    return this.systemService.getVersion()
   }
 
   @Get('health')

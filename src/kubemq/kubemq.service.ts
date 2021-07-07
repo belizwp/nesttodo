@@ -4,18 +4,28 @@ import {
   OnModuleDestroy,
   Logger,
 } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { Config, EventStoreType, EventsStoreClient, EventsStoreSubscriptionRequest, EventsStoreMessage, Utils } from 'kubemq-js'
-
 import { SUBSCRIBER_MAP, SUBSCRIBER_OBJECT_MAP } from './kubemq.decorator'
 
 @Injectable()
 export class KubemqService implements OnModuleInit, OnModuleDestroy {
   protected logger = new Logger(KubemqService.name, true)
   private eventsClient: EventsStoreClient
+  private isEnable: boolean
+  private group: string
+
+  constructor(private configService: ConfigService) {
+    this.isEnable = this.configService.get('kubemq.isEnable')
+    this.group = this.configService.get('kubemq.group')
+  }
 
   async onModuleInit() {
+    if (!this.isEnable) {
+      return
+    }
     const opts: Config = {
-      address: 'localhost:50000',
+      address: this.configService.get('kubemq.address'),
       clientId: Utils.uuid(),
     }
     this.eventsClient = new EventsStoreClient(opts)
@@ -25,10 +35,16 @@ export class KubemqService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
+    if (!this.isEnable) {
+      return
+    }
     await this.eventsClient.close()
   }
 
   async publish(channel: string, message: string): Promise<void> {
+    if (!this.isEnable) {
+      return
+    }
     const eventsMessage: EventsStoreMessage = {
       channel: channel,
       body: Utils.stringToBytes(message),
@@ -39,7 +55,7 @@ export class KubemqService implements OnModuleInit, OnModuleDestroy {
   private async subscribe(channel: string): Promise<void> {
     const subRequest: EventsStoreSubscriptionRequest = {
       channel: channel,
-      group: 'nesttodo',
+      group: this.group,
       clientId: Utils.uuid(),
       requestType: EventStoreType.StartFromFirst,
     }

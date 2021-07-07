@@ -1,18 +1,10 @@
-import { DynamicModule, Global, Module } from '@nestjs/common'
+import { DynamicModule, Global, Inject, Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { KubemqService } from './kubemq.service'
 
 @Global()
-@Module({})
-export class KubemqModule {
-  static forRoot(): DynamicModule {
-    const provider = {
-      provide: KubemqService,
-      useValue: new KubemqService(),
-    }
-    return {
-      module: KubemqModule,
-      providers: [provider],
-      exports: [provider],
-    }
-  }
-}
+@Module({
+  providers: [KubemqService, ConfigService],
+  exports: [KubemqService],
+})
+export class KubemqModule { }
