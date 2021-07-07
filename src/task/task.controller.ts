@@ -15,11 +15,11 @@ import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
 import { Authenticated, AuthInfo } from '../shared/decorator/authenticated.decorator'
 
-@Controller('tasks')
+@Controller()
 export class TaskController {
   constructor(private readonly tasksService: TaskService) { }
 
-  @Post()
+  @Post('tasks')
   create(
     @Authenticated() authInfo: AuthInfo,
     @Body() createTaskDto: CreateTaskDto,
@@ -27,7 +27,7 @@ export class TaskController {
     return this.tasksService.create(createTaskDto)
   }
 
-  @Get()
+  @Get('tasks')
   async findAll(
     @Query('q') searchString?: string,
     @Query('limit') limit?: number,
@@ -40,7 +40,7 @@ export class TaskController {
     }
   }
 
-  @Get(':id')
+  @Get('tasks/:id')
   async findOne(@Param('id') id: string) {
     let result = await this.tasksService.findOne(+id)
     if (result) {
@@ -49,7 +49,7 @@ export class TaskController {
     throw new HttpException(`not found task ${id}`, HttpStatus.NOT_FOUND)
   }
 
-  @Patch(':id')
+  @Patch('tasks/:id')
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     let result = this.tasksService.update(+id, updateTaskDto)
     if (result) {
@@ -61,7 +61,7 @@ export class TaskController {
     )
   }
 
-  @Delete(':id')
+  @Delete('tasks:id')
   remove(@Param('id') id: string) {
     let result = this.tasksService.remove(+id)
     if (result) {
