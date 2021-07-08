@@ -17,6 +17,7 @@ if (ENV === 'production') {
 }
 
 export default () => ({
+  env: ENV || 'local',
   name: pjson.name || '',
   version: pjson.version || '',
   ...envConfig,
