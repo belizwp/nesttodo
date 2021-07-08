@@ -1,7 +1,7 @@
 export default () => ({
   kubemq: {
-    isEnable: false,
-    address: 'localhost:50000',
+    isEnable: true,
+    address: 'kubemq-cluster-grpc:50000',
     group: 'nesttodo'
   }
 });
